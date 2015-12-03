@@ -39,7 +39,7 @@ class listener implements EventSubscriberInterface
 	{
 		$eventvars = $event['result'];
 		if (in_array($eventvars['status'], range(10, 15)))
-		{	
+		{
 			$this->log->add('admin', $eventvars['user_row']['user_id'], $this->user->ip, 'LOG_FAULTY_LOGINS', time(),
 				array(($eventvars['user_row']['user_id'] == 1) ? 'Guest': $eventvars['user_row']['username'], $event['password'], $this->user->lang[$eventvars['error_msg']]));
 		}
