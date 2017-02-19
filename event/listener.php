@@ -3,12 +3,14 @@
 *
 * @package Faulty logins
 * @copyright (c) 2014 John Peskens (http://ForumHulp.com)
-* @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
+* @license Proprietary
 *
 */
 
 namespace forumhulp\faultylogins\event;
 
+use phpbb\user;
+use phpbb\log\log;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -22,7 +24,7 @@ class listener implements EventSubscriberInterface
 	/**
 	* Constructor
 	*/
-	public function __construct(\phpbb\user $user, \phpbb\log\log $log)
+	public function __construct(user $user,log $log)
 	{
 		$this->user = $user;
 		$this->log = $log;
@@ -41,7 +43,7 @@ class listener implements EventSubscriberInterface
 		if (in_array($eventvars['status'], range(10, 15)))
 		{
 			$this->log->add('admin', $eventvars['user_row']['user_id'], $this->user->ip, 'LOG_FAULTY_LOGINS', time(),
-				array(($eventvars['user_row']['user_id'] == 1) ? 'Guest': $eventvars['user_row']['username'], $event['password'], $this->user->lang[$eventvars['error_msg']]));
+				array(($eventvars['user_row']['user_id'] == 1) ? $this->user->lang['GUEST'] : $eventvars['user_row']['username'], $event['password'], $this->user->lang[$eventvars['error_msg']]));
 		}
 	}
 }
