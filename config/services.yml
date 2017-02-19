@@ -2,7 +2,7 @@ services:
     forumhulp.faultylogins.listener:
         class: forumhulp\faultylogins\event\listener
         arguments:
-            - @user
-            - @log
+            - '@user'
+            - '@log'
         tags:
             - { name: event.listener }
