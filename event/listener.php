@@ -24,7 +24,7 @@ class listener implements EventSubscriberInterface
 	/**
 	* Constructor
 	*/
-	public function __construct(user $user,log $log)
+	public function __construct(user $user, log $log)
 	{
 		$this->user = $user;
 		$this->log = $log;
